@@ -68,6 +68,7 @@ All endpoints use the base URL `http://localhost:3000`. Send and receive JSON un
 | `GET` | `/` | Check server status |
 | `GET` | `/api/books` | List all books |
 | `GET` | `/api/books/:id` | Get a book by ID |
+| `GET` | `/api/books/search?q=term` | Search title, author, or category (case-insensitive) |
 | `POST` | `/api/books` | Add a book |
 | `PUT` | `/api/books/:id` | Replace a book's title, author, category, and quantity |
 | `DELETE` | `/api/books/:id` | Delete a book if no copies are issued |
@@ -99,6 +100,16 @@ All endpoints use the base URL `http://localhost:3000`. Send and receive JSON un
   "quantity": 6
 }
 ```
+
+### Search books
+
+Search is case-insensitive and matches part of a book's title, author, or category. The API returns an array; it is empty when there are no matches.
+
+```text
+GET /api/books/search?q=java
+```
+
+`GET /api/books` also returns an empty array (`[]`) if there are no books in the collection.
 
 ### Issue and return copies
 

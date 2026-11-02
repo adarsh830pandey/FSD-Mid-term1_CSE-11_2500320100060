@@ -52,6 +52,21 @@ app.get("/api/books", (req, res) => {
   res.json(books);
 });
 
+app.get("/api/books/search", (req, res) => {
+  const query = req.query.q;
+  if (typeof query !== "string" || !query.trim()) {
+    return res.status(400).json({ error: "Provide a non-empty search query using the q parameter." });
+  }
+
+  const searchTerm = query.trim().toLowerCase();
+  const matches = books.filter((book) =>
+    [book.title, book.author, book.category].some((value) =>
+      value.toLowerCase().includes(searchTerm),
+    ),
+  );
+  res.json(matches);
+});
+
 app.get("/api/books/:id", findBook, (req, res) => {
   res.json(req.book);
 });
